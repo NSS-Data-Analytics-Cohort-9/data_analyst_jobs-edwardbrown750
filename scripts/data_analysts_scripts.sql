@@ -51,7 +51,7 @@
 -- GROUP BY location
 -- ORDER BY avg_rating DESC;
 
--- ANSWER: Nevada (NE)
+-- ANSWER: Nebraska (NE)
 
 -- 7.	Select unique job titles from the data_analyst_jobs table. How many are there?
 
@@ -85,12 +85,12 @@
 
 -- 10.	Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
 
--- SELECT DISTINCT (company), AVG(star_rating) AS avg_star_rating
--- FROM data_analyst_jobs
--- WHERE review_count > 5000
--- 	AND company IS NOT NULL
--- GROUP BY company
--- ORDER BY avg_star_rating DESC;
+SELECT DISTINCT (company), AVG(star_rating) AS avg_star_rating
+FROM data_analyst_jobs
+WHERE review_count > 5000
+	AND company IS NOT NULL
+GROUP BY company
+ORDER BY avg_star_rating DESC;
 
 -- ANSWER: American Express / 4.1999998090000000
 
@@ -98,27 +98,18 @@
 
 -- SELECT DISTINCT (title)
 -- FROM data_analyst_jobs
--- WHERE title LIKE '%Analyst%';
+-- WHERE UPPER(title) LIKE '%ANALYST%';
 
--- SELECT COUNT(DISTINCT title)
--- FROM data_analyst_jobs
--- WHERE title LIKE '%Analyst%';
-
--- ANSWER: 754
+-- ANSWER: 774
 
 -- 12.	How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
 
--- SELECT DISTINCT (title)
+-- SELECT DISTINCT(title)
 -- FROM data_analyst_jobs
--- WHERE title NOT LIKE '%Analyst%'
--- 	AND title NOT LIKE '%Analytics%';
-
--- SELECT COUNT(DISTINCT title)
--- FROM data_analyst_jobs
--- WHERE title NOT LIKE '%Analyst%'
--- 	AND title NOT LIKE '%Analytics%';
+-- WHERE UPPER(title) NOT LIKE '%ANALYST%'
+-- 	AND UPPER(title) NOT LIKE '%ANALYTICS%';
 	
--- ANSWER: 26 / All of the entires in the query still contain 'Analyst', but its either all caps (ANALYST) or all lowercase (analyst), and not being filtered out.
+-- ANSWER: 4 / They focus on Tableau and visualization as the key skill.
 
 -- **BONUS:**
 -- You want to understand which jobs requiring SQL are hard to fill. Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks. 
@@ -126,12 +117,13 @@
 --  - Order your results so that the domain with the greatest number of `hard to fill` jobs is at the top. 
 --   - Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
 
-SELECT DISTINCT(domain), COUNT(domain) AS hard_to_fill_count
+SELECT domain, COUNT(days_since_posting) AS hard_to_fill_count
 FROM data_analyst_jobs
 WHERE skill LIKE '%SQL%'
 	AND days_since_posting > 21
 	AND domain IS NOT NULL
 GROUP BY domain
-ORDER BY hard_to_fill_count DESC;
+ORDER BY hard_to_fill_count DESC
+LIMIT 4;
 
--- ANSWER: I'm finding 4 industries in the Top 4 instead of 3??? 
+-- ANSWER: Internet and Software (62), Banks and Financial Services (61), Consulting and Business Services (57), Health Care (52)

@@ -70,29 +70,24 @@
 
 -- 9. Find the name of each company and its average star rating for all companies that have more than 5000 reviews across all locations. How many companies are there with more that 5000 reviews across all locations?
 
--- SELECT DISTINCT (company), AVG(star_rating) AS avg_star_rating
+-- SELECT company, AVG(star_rating) AS avg_star_rating
 -- FROM data_analyst_jobs
 -- WHERE review_count > 5000
 -- 	AND company IS NOT NULL
 -- GROUP BY company;
-
--- SELECT COUNT(DISTINCT company)
--- FROM data_analyst_jobs
--- WHERE review_count > 5000
--- 	AND company IS NOT NULL;
 	
 -- ANSWER: 40
 
 -- 10.	Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
 
-SELECT DISTINCT (company), AVG(star_rating) AS avg_star_rating
-FROM data_analyst_jobs
-WHERE review_count > 5000
-	AND company IS NOT NULL
-GROUP BY company
-ORDER BY avg_star_rating DESC;
+-- SELECT company, AVG(star_rating) AS avg_star_rating
+-- FROM data_analyst_jobs
+-- WHERE review_count > 5000
+-- 	AND company IS NOT NULL
+-- GROUP BY company
+-- ORDER BY avg_star_rating DESC;
 
--- ANSWER: American Express / 4.1999998090000000
+-- ANSWER: American Express / 4.1999998090000000, but there's a six-way tie between American Express, Unilever, General Motors, Nike, Microsoft, and Kaiswer Permanente.
 
 -- 11. Find all the job titles that contain the word ‘Analyst’. How many different job titles are there? 
 
@@ -117,13 +112,13 @@ ORDER BY avg_star_rating DESC;
 --  - Order your results so that the domain with the greatest number of `hard to fill` jobs is at the top. 
 --   - Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
 
-SELECT domain, COUNT(days_since_posting) AS hard_to_fill_count
-FROM data_analyst_jobs
-WHERE skill LIKE '%SQL%'
-	AND days_since_posting > 21
-	AND domain IS NOT NULL
-GROUP BY domain
-ORDER BY hard_to_fill_count DESC
-LIMIT 4;
+-- SELECT domain, COUNT(days_since_posting) AS hard_to_fill_count
+-- FROM data_analyst_jobs
+-- WHERE skill LIKE '%SQL%'
+-- 	AND days_since_posting > 21
+-- 	AND domain IS NOT NULL
+-- GROUP BY domain
+-- ORDER BY hard_to_fill_count DESC
+-- LIMIT 4;
 
 -- ANSWER: Internet and Software (62), Banks and Financial Services (61), Consulting and Business Services (57), Health Care (52)
